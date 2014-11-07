@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<!--
+/** 
+* Magento CZ Module
+* 
+* NOTICE OF LICENSE 
+* 
+* This source file is subject to the Open Software License (OSL 3.0) 
+* that is bundled with this package in the file LICENSE.txt. 
+* It is also available through the world-wide-web at this URL: 
+* http://opensource.org/licenses/osl-3.0.php 
+* If you did of the license and are unable to 
+* obtain it through the world-wide-web, please send an email 
+* to magentocz@gmail.com so we can send you a copy immediately. 
+* 
+* @copyright Copyright (c) 2014 GetReady s.r.o. (https://getready.cz)
+* 
+*/ 
+-->
+<config>
+    <modules>
+        <Magentocz_Cashondelivery>
+            <version>1.0.0</version>
+        </Magentocz_Cashondelivery>
+    </modules>
+
+    <global>
+        <models>
+            <magentocz_cashondelivery>
+                <class>Magentocz_Cashondelivery_Model</class>
+            </magentocz_cashondelivery>
+        </models>
+        <resources>
+            <magentocz_cashondelivery_setup>
+                <setup>
+                    <module>Magentocz_Cashondelivery</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </magentocz_cashondelivery_setup>
+            <magentocz_cashondelivery_write>
+                <use>core_write</use>
+            </magentocz_cashondelivery_write>
+            <magentocz_cashondelivery_read>
+                <use>core_read</use>
+            </magentocz_cashondelivery_read>
+        </resources>
+        <helpers>
+            <magentocz_cashondelivery>
+                <class>Magentocz_Cashondelivery_Helper</class>
+            </magentocz_cashondelivery>
+        </helpers>
+        <blocks>
+            <magentocz_cashondelivery>
+                <class>Magentocz_Cashondelivery_Block</class>
+            </magentocz_cashondelivery>
+        </blocks>
+        <sales>
+            <quote>
+                <totals>
+                    <magentocz_cashondelivery>
+                        <class>magentocz_cashondelivery/sales_quote_total</class>
+                        <after>subtotal,discount,shipping</after>
+                        <before>tax,grand_total</before>
+                        <renderer>magentocz_cashondelivery/checkout_cod</renderer>
+                        <admin_renderer>magentocz_cashondelivery/adminhtml_sales_order_create_totals_cod</admin_renderer>
+                    </magentocz_cashondelivery>
+                    <magentocz_cashondelivery_tax>
+                        <class>magentocz_cashondelivery/sales_quote_taxTotal</class>
+                        <after>subtotal,discount,shipping,tax</after>
+                        <before>grand_total</before>
+                    </magentocz_cashondelivery_tax>
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <magentocz_cashondelivery>
+                        <class>magentocz_cashondelivery/sales_invoice_total</class>
+                        <after>subtotal,discount,shipping</after>
+                        <before>tax,grand_total</before>
+                    </magentocz_cashondelivery>
+                    <magentocz_cashondelivery_tax>
+                        <class>magentocz_cashondelivery/sales_invoice_tax</class>
+                        <after>subtotal,discount,shipping,tax</after>
+                        <before>grand_total</before>
+                    </magentocz_cashondelivery_tax>
+                    <magentocz_cashondelivery_subtotal>
+                      <class>magentocz_cashondelivery/sales_invoice_subtotal</class>
+                    </magentocz_cashondelivery_subtotal>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <magentocz_cashondelivery>
+                        <class>magentocz_cashondelivery/sales_creditmemo_total</class>
+                        <after>subtotal,discount,shipping</after>
+                        <before>tax,grand_total</before>
+                    </magentocz_cashondelivery>
+                    <magentocz_cashondelivery_tax>
+                        <class>magentocz_cashondelivery/sales_creditmemo_tax</class>
+                        <after>subtotal,discount,shipping,tax</after>
+                        <before>grand_total</before>
+                    </magentocz_cashondelivery_tax>
+                </totals>
+            </order_creditmemo>
+        </sales>
+        <events>
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <magentocz_cashondelivery>
+                        <type>singleton</type>
+                        <class>magentocz_cashondelivery/observer</class>
+                        <method>sales_quote_collect_totals_after</method>
+                    </magentocz_cashondelivery>
+                </observers>
+            </sales_quote_collect_totals_after>
+            <sales_order_payment_place_end>
+                <observers>
+                    <magentocz_cashondelivery>
+                        <type>singleton</type>
+                        <class>magentocz_cashondelivery/observer</class>
+                        <method>sales_order_payment_place_end</method>
+                    </magentocz_cashondelivery>
+                </observers>
+            </sales_order_payment_place_end>
+            <order_cancel_after>
+                <observers>
+                    <magentocz_cashondelivery>
+                        <type>singleton</type>
+                        <class>magentocz_cashondelivery/observer</class>
+                        <method>order_cancel_after</method>
+                    </magentocz_cashondelivery>
+                </observers>
+            </order_cancel_after>
+        </events>
+        <pdf>
+            <totals>
+                <magentocz_cashondelivery translate="title">
+                    <title>Cash on Delivery fee</title>
+                    <source_field>cod_fee</source_field>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>450</sort_order>
+                    <model>magentocz_cashondelivery/sales_pdf_cod</model>
+                </magentocz_cashondelivery>
+            </totals>
+        </pdf>
+    </global>
+
+    <default>
+        <sales>
+            <totals_sort>
+                <magentocz_cashondelivery>35</magentocz_cashondelivery>
+            </totals_sort>
+        </sales>
+        <payment>
+            <magentocz_cashondelivery>
+                <active>0</active>
+                <model>magentocz_cashondelivery/cashondelivery</model>
+                <order_status>1</order_status>
+                <title>Cash on Delivery</title>
+                <allowspecific>0</allowspecific>
+                <shippingallowspecific>0</shippingallowspecific>
+                <disallowspecificshippingmethods>0</disallowspecificshippingmethods>
+                <display_zero_fee>0</display_zero_fee>
+            </magentocz_cashondelivery>
+        </payment>
+        <sales>
+            <totals_sort>
+                <magentocz_cashondelivery>15</magentocz_cashondelivery>
+                <magentocz_cashondelivery_tax>97</magentocz_cashondelivery_tax>
+            </totals_sort>
+        </sales>
+        <tax>
+            <classes>
+                <magentocz_cashondelivery_tax_class></magentocz_cashondelivery_tax_class>
+            </classes>
+            <calculation>
+                <magentocz_cashondelivery_includes_tax>0</magentocz_cashondelivery_includes_tax>
+            </calculation>
+            <display>
+                <magentocz_cashondelivery_fee>1</magentocz_cashondelivery_fee>
+            </display>
+        </tax>
+    </default>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Magentocz_Cashondelivery>
+                    <files>
+                        <default>Magentocz_Cashondelivery.csv</default>
+                    </files>
+                </Magentocz_Cashondelivery>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <magentocz_cashondelivery>
+                    <file>magentocz/cashondelivery.xml</file>
+                </magentocz_cashondelivery>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <frontend>
+        <layout>
+            <updates>
+                <magentocz_cashondelivery>
+                    <file>magentocz/cashondelivery.xml</file>
+                </magentocz_cashondelivery>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Magentocz_Cashondelivery>
+                    <files>
+                        <default>Magentocz_Cashondelivery.csv</default>
+                    </files>
+                </Magentocz_Cashondelivery>
+            </modules>
+        </translate>
+    </frontend>
+</config>
