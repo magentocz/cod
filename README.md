@@ -18,7 +18,7 @@ Na verzích nižších než 1.9.0.1 nebylo zatím testováno, na 99% bude fungov
 
 ## Podpora
 
-Veškeré dotazy a hlášení chyb směřujte na https://github.com/magentocz/dobirka/issues
+Veškeré dotazy a hlášení chyb směřujte na https://github.com/magentocz/cod/issues
 
 # LICENCE
 
@@ -41,4 +41,4 @@ Veškeré dotazy a hlášení chyb směřujte na https://github.com/magentocz/do
     */
 
 
-[![Analytics](https://ga-beacon.appspot.com/UA-54971165-2/magentocz/dobirka/README?pixel)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-54971165-2/magentocz/cod/README?pixel)](https://github.com/igrigorik/ga-beacon)
