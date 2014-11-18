@@ -16,6 +16,7 @@
 * 
 */ 
 ?>
+<?php if (Mage::getStoreConfig('payment/magentocz_cashondelivery/display_fee') == '1' ) : ?>
 <?php
 $_code		= $this->getMethodCode();
 $_extra_fee	= $this->getMethod()->getAddressCosts($this->getShippingAddress());
@@ -41,4 +42,5 @@ if ($this->helper('magentocz_cashondelivery')->displayCodBothPrices() && ($_extr
 		<?php endif; ?>
 	</ul>
 </fieldset>
+<?php endif; ?>
 <?php endif; ?>

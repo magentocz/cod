@@ -19,6 +19,13 @@
 -->
 
 <layout>
+
+    <checkout_onepage_success>
+        <reference name="order_totals">
+            <block name="magentocz_cashondelivery_fee" type="magentocz_cashondelivery/totals_order"/>
+        </reference>
+    </checkout_onepage_success>
+
     <sales_order_print>
         <reference name="order_totals">
             <block name="magentocz_cashondelivery_fee" type="magentocz_cashondelivery/totals_order"/>
